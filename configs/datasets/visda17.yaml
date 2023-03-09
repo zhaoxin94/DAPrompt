@@ -3,7 +3,7 @@ INPUT:
   TRANSFORMS: ["random_flip", "center_crop", "normalize"]
 
 DATASET:
-  NAME: "VISDA"
+  NAME: "VisDA17"
   SOURCE_DOMAINS: ["synthetic"]
   TARGET_DOMAINS: ["real"]
 
