@@ -10,7 +10,8 @@ from torch.cuda.amp import GradScaler, autocast
 
 from dassl.engine import TRAINER_REGISTRY, TrainerXU
 from dassl.metrics import compute_accuracy
-from dassl.utils import MetricMeter, AverageMeter, load_pretrained_weights, load_checkpoint, save_checkpoint
+from dassl.utils import (MetricMeter, AverageMeter, load_pretrained_weights,
+                         load_checkpoint, save_checkpoint)
 from dassl.optim import build_optimizer, build_lr_scheduler
 
 from clip import clip
@@ -139,8 +140,7 @@ class PromptLearner(nn.Module):
         self.csc = cfg.TRAINER.DAPL.CSC
         self.tokenized_prompts = tokenized_prompts  # torch.Tensor
         self.name_lens = name_lens
-        self.naive_embedding = naive_embedding.to(
-            torch.device("cuda"))
+        self.naive_embedding = naive_embedding.to(torch.device("cuda"))
 
     @autocast()
     def forward(self):
@@ -412,14 +412,11 @@ class DAPL(TrainerXU):
             self.scaler.update()
 
         loss_summary = {
-            "loss":
-            loss.item(),
-            "loss_x":
-            loss_x.item(),
-            "loss_u":
-            loss_u.item(),
-            "acc_x":
-            compute_accuracy(output_x[:, :self.n_cls], label)[0].item(),
+            "loss": loss.item(),
+            "loss_x": loss_x.item(),
+            "loss_u": loss_u.item(),
+            "acc_x": compute_accuracy(output_x[:, :self.n_cls],
+                                      label)[0].item(),
         }
 
         self.update_lr()
