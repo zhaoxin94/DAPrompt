@@ -4,8 +4,8 @@ from dassl.data.datasets import DATASET_REGISTRY, Datum, DatasetBase
 
 
 @DATASET_REGISTRY.register()
-class VisDA17(DatasetBase):
-    """VisDA17.
+class VISDA(DatasetBase):
+    """VISDA.
 
     Focusing on simulation-to-reality domain shift.
 
@@ -16,7 +16,7 @@ class VisDA17(DatasetBase):
         Challenge. ArXiv 2017.
     """
 
-    dataset_dir = "visda17"
+    dataset_dir = "visda"
     domains = ["synthetic", "real"]
 
     def __init__(self, cfg):

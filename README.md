@@ -101,13 +101,13 @@ The commond is in the file `DAPL/scripts/main.sh`, which contains six input argu
 
 Below we provide examples on how to run DAPL on VisDA-2017. The file `DAPL/scripts/main.sh` defines the path to dataset in the line 6. You may set it as the true path to your dataset. If you want to train DAPL on the VisDA-2017 dataset, you may run the below command in the path `DAPL/scripts`:
 ```bash
-bash main.sh visda17 ep25-32-csc 1.0 0.5 1.0 t0
+bash main.sh visda ep25-32-csc 1.0 0.5 1.0 t0
 ```
 
 ### Load a pre-trained Model
 We have upload a pretrained weight. You can load it and evaluate in the target domain. The command is 
 ```bash
-bash eval.sh visda17 ep25-32-csc 1.0 0.5 1.0 t0
+bash eval.sh visda ep25-32-csc 1.0 0.5 1.0 t0
 ```
 
 ## How to Develop New Algorithm
@@ -126,7 +126,7 @@ If you want to define a new method `NewDA`, you may need to develop the project 
 - Replace the "TRAINER" in the `DAPL/scripts/main.sh` with your new method(e.g. NewDA);
 - You could run you code on VisDA-2017 by the command: 
 ```bash
-bash main.sh visda17 ep25 1.0 0.5 1.0 t0
+bash main.sh visda ep25 1.0 0.5 1.0 t0
 ```
 
 If you want to add new dataset `NewData`, you may follow:
