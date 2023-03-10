@@ -3,7 +3,7 @@
 cd ..
 
 # custom config
-DATA=/home/data # you may change your path to dataset here
+DATA=~/data/bbda # you may change your path to dataset here
 TRAINER=DAPL
 
 DATASET=$1 # name of the dataset

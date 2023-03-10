@@ -4,8 +4,8 @@ from dassl.data.datasets import DATASET_REGISTRY, Datum, DatasetBase
 
 
 @DATASET_REGISTRY.register()
-class VISDA(DatasetBase):
-    """VISDA.
+class VisDA(DatasetBase):
+    """VisDA17.
 
     Focusing on simulation-to-reality domain shift.
 
@@ -23,9 +23,8 @@ class VISDA(DatasetBase):
         root = osp.abspath(osp.expanduser(cfg.DATASET.ROOT))
         self.dataset_dir = osp.join(root, self.dataset_dir)
 
-        self.check_input_domains(
-            cfg.DATASET.SOURCE_DOMAINS, cfg.DATASET.TARGET_DOMAINS
-        )
+        self.check_input_domains(cfg.DATASET.SOURCE_DOMAINS,
+                                 cfg.DATASET.TARGET_DOMAINS)
 
         train_x = self._read_data("synthetic")
         train_u = self._read_data("real")
@@ -34,8 +33,9 @@ class VISDA(DatasetBase):
         super().__init__(train_x=train_x, train_u=train_u, test=test)
 
     def _read_data(self, dname):
-        filedir = "train" if dname == "synthetic" else "validation"
-        image_list = osp.join(self.dataset_dir, filedir, "image_list.txt")
+        filename = "train" if dname == "synthetic" else "validation"
+        image_list = osp.join(self.dataset_dir, 'image_list',
+                              filename + '.txt')
         items = []
         # There is only one source domain
         domain = 0
@@ -46,15 +46,14 @@ class VISDA(DatasetBase):
             for line in lines:
                 line = line.strip()
                 impath, label = line.split(" ")
-                classname = impath.split("/")[0]
-                impath = osp.join(self.dataset_dir, filedir, impath)
+                classname = impath.split("/")[-2]
+                if not osp.isabs(impath):
+                    impath = osp.join(self.dataset_dir, impath)
                 label = int(label)
-                item = Datum(
-                    impath=impath,
-                    label=label,
-                    domain=domain,
-                    classname=classname
-                )
+                item = Datum(impath=impath,
+                             label=label,
+                             domain=domain,
+                             classname=classname)
                 items.append(item)
 
         return items
