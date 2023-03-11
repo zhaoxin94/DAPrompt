@@ -8,8 +8,7 @@ from dassl.engine import build_trainer
 from torch.cuda import init
 
 # custom
-from dassl.data.datasets import VisDA17
-from dassl.data.datasets import OfficeHome
+import datasets
 
 import trainers.dapl
 
