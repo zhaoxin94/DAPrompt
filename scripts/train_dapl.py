@@ -34,12 +34,12 @@ if __name__ == '__main__':
                         ])
     parser.add_argument("--n_trials",
                         "-n",
-                        default=3,
+                        default=5,
                         type=int,
                         help="Repeat times")
     parser.add_argument("--n_start", default=0, type=int)
     parser.add_argument('--exp_name', type=str, default='')
-    parser.add_argument('--seed', type=int, default=-1)
+    parser.add_argument('--seed', type=int, default=2023)
     parser.add_argument('--CFG', type=str, default="ep25-32-csc")
     parser.add_argument('--T', type=float, default=1.0)
     parser.add_argument('--TAU', type=float, default=0.5)
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         data_file = 'office31'
     elif args.dataset == 'officehome':
         domains = ['art', 'clipart', 'product', 'real_world']
-        data_file = 'office_home'
+        data_file = 'officehome'
     elif args.dataset == 'cs':
         domains = ["AID", "Merced", "NWPU"]
         data_file = 'cross_scene'
