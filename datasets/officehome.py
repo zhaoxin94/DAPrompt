@@ -1,13 +1,11 @@
 import os.path as osp
 
-from dassl.utils import listdir_nohidden
-
 from dassl.data.datasets import DATASET_REGISTRY, Datum, DatasetBase
 
 
 @DATASET_REGISTRY.register()
-class OfficeHome(DatasetBase):
-    """Office-Home.
+class OfficeHome_BBDA(DatasetBase):
+    """Office-Home BBDA.
 
     Statistics:
         - Around 15,500 images.
@@ -27,9 +25,8 @@ class OfficeHome(DatasetBase):
         root = osp.abspath(osp.expanduser(cfg.DATASET.ROOT))
         self.dataset_dir = osp.join(root, self.dataset_dir)
 
-        self.check_input_domains(
-            cfg.DATASET.SOURCE_DOMAINS, cfg.DATASET.TARGET_DOMAINS
-        )
+        self.check_input_domains(cfg.DATASET.SOURCE_DOMAINS,
+                                 cfg.DATASET.TARGET_DOMAINS)
 
         train_x = self._read_data(cfg.DATASET.SOURCE_DOMAINS)
         train_u = self._read_data(cfg.DATASET.TARGET_DOMAINS)
@@ -39,24 +36,20 @@ class OfficeHome(DatasetBase):
 
     def _read_data(self, input_domains):
         items = []
-
         for domain, dname in enumerate(input_domains):
-            domain_dir = osp.join(self.dataset_dir, dname)
-            class_names = listdir_nohidden(domain_dir)
-            class_names.sort()
+            txt_file = osp.join(self.dataset_dir, 'image_list', dname + '.txt')
+            with open(txt_file, "r") as f:
+                for line in f.readlines():
+                    path, label = line.split()
+                    label = int(label)
+                    class_name = path.split('/')[-2]
+                    if not osp.isabs(path):
+                        path = osp.join(self.dataset_dir, path)
 
-            for label, class_name in enumerate(class_names):
-                class_path = osp.join(domain_dir, class_name)
-                imnames = listdir_nohidden(class_path)
-
-                for imname in imnames:
-                    impath = osp.join(class_path, imname)
-                    item = Datum(
-                        impath=impath,
-                        label=label,
-                        domain=domain,
-                        classname=class_name.lower(),
-                    )
+                    item = Datum(impath=path,
+                                 label=label,
+                                 domain=domain,
+                                 classname=class_name.lower())
                     items.append(item)
 
         return items

@@ -3,7 +3,7 @@ INPUT:
   TRANSFORMS: ["random_flip", "center_crop", "normalize"]
 
 DATASET:
-  NAME: "OfficeHome"
+  NAME: "OfficeHome_BBDA"
   SOURCE_DOMAINS: ["art"]
   # TARGET_DOMAINS: ["clipart"]
   # TARGET_DOMAINS: ["art"]
