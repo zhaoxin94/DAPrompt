@@ -111,6 +111,7 @@ class PromptLearner(nn.Module):
             naive_prompt_prefix + " " + name + "." for name in classnames
         ]
 
+        # repeated ".", should remove one
         prompts = [
             prompt_prefix + " " + name + " " + domain + "."
             for domain in domainnames for name in classnames
