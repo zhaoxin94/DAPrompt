@@ -34,7 +34,7 @@ if __name__ == '__main__':
                         ])
     parser.add_argument("--n_trials",
                         "-n",
-                        default=5,
+                        default=3,
                         type=int,
                         help="Repeat times")
     parser.add_argument("--n_start", default=0, type=int)
