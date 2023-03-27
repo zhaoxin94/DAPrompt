@@ -36,7 +36,7 @@ if __name__ == '__main__':
                         "-n",
                         default=3,
                         type=int,
-                        help="Repeat times")
+                        help="Repeat timess")
     parser.add_argument("--n_start", default=0, type=int)
     parser.add_argument('--exp_name', type=str, default='')
     parser.add_argument('--seed', type=int, default=2023)
