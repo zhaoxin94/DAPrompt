@@ -28,7 +28,7 @@ TRAIN:
 
 MODEL:
   BACKBONE:
-    NAME: "RN101"
+    NAME: "RN50"
 
 TRAINER:
   DAPL:
